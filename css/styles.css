@@ -67,14 +67,16 @@ section{padding-top:clamp(4.5rem,11vh,9rem);padding-bottom:clamp(4.5rem,11vh,9re
 .showcase .intro h2 em{font-style:italic;color:#D9A79B}
 .showcase .intro p{margin-top:1.5rem;max-width:42ch;color:rgba(243,239,232,.6)}
 .stage{max-width:var(--maxw);margin:0 auto;padding:2rem var(--pad) 6rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
-.piece{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.7)}
+.piece{position:relative;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.7);background:#161311}
+.piece img{display:block;width:100%;height:auto}
 .piece .cap{position:absolute;left:1rem;bottom:1rem;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8);z-index:3}
 
 body.motion .showcase{height:560vh}
 body.motion .showcase .sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
 body.motion .showcase .intro{position:absolute;top:0;left:0;right:0;z-index:5;will-change:transform,opacity;padding-top:22vh}
 body.motion .stage{position:absolute;inset:0;display:block;padding:0;max-width:none;perspective:1600px}
-body.motion .piece{position:absolute;top:50%;left:50%;width:min(62vw,360px);margin:0;transform:translate(-50%,-50%);will-change:transform,opacity;backface-visibility:hidden}
+body.motion .piece{position:absolute;top:50%;left:50%;width:auto;margin:0;transform:translate(-50%,-50%);will-change:transform,opacity;backface-visibility:hidden}
+body.motion .piece img{width:auto;height:auto;max-height:74vh;max-width:min(66vw,440px)}
 body.motion .piece .cap{display:none}
 
 .hud{display:none}
@@ -257,7 +259,7 @@ body.motion .hgallery.pinned .htrack-wrap{overflow:visible}
   .work-item{grid-template-columns:auto 1fr;gap:1.2rem}
   .work-item .tags{grid-column:2;justify-content:flex-start;margin-top:.8rem;max-width:none}
   .facts{grid-template-columns:1fr}
-  body.motion .piece{width:74vw}
+  body.motion .piece img{max-width:82vw;max-height:66vh}
   .stat-row{grid-template-columns:repeat(2,1fr)}
   .platforms{grid-template-columns:1fr}
 }
