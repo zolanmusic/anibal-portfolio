@@ -76,7 +76,7 @@ body.motion .showcase .sticky{position:sticky;top:0;height:100vh;overflow:hidden
 body.motion .showcase .intro{position:absolute;top:0;left:0;right:0;z-index:5;will-change:transform,opacity;padding-top:22vh}
 body.motion .stage{position:absolute;inset:0;display:block;padding:0;max-width:none;perspective:1600px}
 body.motion .piece{position:absolute;top:50%;left:50%;width:auto;margin:0;transform:translate(-50%,-50%);will-change:transform,opacity;backface-visibility:hidden}
-body.motion .piece img{width:auto;height:auto;max-height:74vh;max-width:min(66vw,440px)}
+body.motion .piece img{width:auto;height:auto;max-height:74vh;max-width:min(82vw,1040px)}
 body.motion .piece .cap{display:none}
 
 .hud{display:none}
@@ -259,7 +259,7 @@ body.motion .hgallery.pinned .htrack-wrap{overflow:visible}
   .work-item{grid-template-columns:auto 1fr;gap:1.2rem}
   .work-item .tags{grid-column:2;justify-content:flex-start;margin-top:.8rem;max-width:none}
   .facts{grid-template-columns:1fr}
-  body.motion .piece img{max-width:82vw;max-height:66vh}
+  body.motion .piece img{max-width:90vw;max-height:66vh}
   .stat-row{grid-template-columns:repeat(2,1fr)}
   .platforms{grid-template-columns:1fr}
 }
