@@ -33,7 +33,7 @@ header.on-dark{color:var(--ink)}
 header.on-dark.scrolled{background:rgba(14,12,10,.7);border-bottom-color:rgba(243,239,232,.14)}
 header.on-dark .brand small,header.on-dark nav a{color:rgba(243,239,232,.7)}
 .brand{font-family:var(--serif);font-size:1.55rem;font-weight:500;line-height:1;display:flex;align-items:center}
-.brand-logo{height:clamp(24px,3vw,32px);width:auto;display:block;filter:brightness(0) invert(1)}
+.brand-logo{height:clamp(36px,5vw,52px);width:auto;display:block;filter:brightness(0) invert(1)}
 .brand small{font-family:var(--sans);font-size:.62rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);display:block;margin-top:.25rem}
 nav{display:flex;gap:2.2rem;align-items:center}
 nav a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);position:relative;transition:color .3s}
@@ -64,7 +64,7 @@ section{padding-top:clamp(4.5rem,11vh,9rem);padding-bottom:clamp(4.5rem,11vh,9re
    SHOWCASE — Piezas gráficas (pinned scroll-scrub). ★ pieza central.
    Sin .motion (reduced-motion / sin-JS): grilla estática legible.
    ========================================================================= */
-.showcase{background:rgba(8,8,10,.88);color:var(--ink);position:relative}
+.showcase{background:rgba(8,8,10,.72);color:var(--ink);position:relative}
 .showcase .intro{max-width:var(--maxw);margin:0 auto;padding:6rem var(--pad) 2rem}
 .showcase .intro .eyebrow{color:rgba(243,239,232,.5)}
 .showcase .intro h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,9vw,7rem);line-height:1;letter-spacing:-.02em;margin-top:1rem}
@@ -163,7 +163,7 @@ body.motion .hgallery.pinned .htrack-wrap{overflow:visible}
 .facts dt{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:.4rem}
 .facts dd{font-family:var(--serif);font-size:1.2rem}
 
-.contact{background:rgba(8,8,10,.9);color:var(--ink)}
+.contact{background:rgba(8,8,10,.8);color:var(--ink)}
 .contact .wrap{padding-top:clamp(3.5rem,7vh,5.5rem);padding-bottom:clamp(2rem,4vh,3rem)}
 .contact .eyebrow{color:rgba(243,239,232,.55)}
 .contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,4.2vw,3.2rem);line-height:1.05;letter-spacing:-.015em;margin:1rem 0 1.8rem}
@@ -274,7 +274,17 @@ body.motion .piece:not(.is-loaded){min-width:280px;min-height:360px}
 @media (max-width:1000px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.svc-grid{grid-template-columns:1fr}}
 @media (max-width:820px){
-  nav{display:none}.menu-btn{display:block}
+  header{justify-content:center}
+  .brand{position:relative;z-index:81}
+  .menu-btn{display:block;position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);z-index:81}
+  nav{display:flex;position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;
+    background:rgba(10,10,14,.96);backdrop-filter:blur(14px);
+    transform:translateY(-6%);opacity:0;visibility:hidden;
+    transition:opacity .4s ease,transform .5s cubic-bezier(.2,.7,.2,1),visibility .4s;z-index:70}
+  body.nav-open nav{transform:none;opacity:1;visibility:visible}
+  body.nav-open{overflow:hidden}
+  nav a{font-size:1.5rem;letter-spacing:.12em;color:var(--ink)}
+  nav a::after{display:none}
   .about-grid{grid-template-columns:1fr}
   .work-item{grid-template-columns:auto 1fr;gap:1.2rem}
   .work-item .tags{grid-column:2;justify-content:flex-start;margin-top:.8rem;max-width:none}
