@@ -274,44 +274,82 @@
 })();
 
 /* =========================================================================
-   Fondo espacial: campo de estrellas con parallax al scrollear + nebulosa.
-   Sutil y difuminado para no entorpecer la lectura. Respeta reduced-motion.
+   Fondo espacial: estrellas con parallax + galaxias/nebulosas que pasan
+   al scrollear. Sutil y difuminado. Respeta reduced-motion.
    ========================================================================= */
 (function () {
   "use strict";
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var cv = document.getElementById('space');
-  var neb = document.getElementById('nebula');
   if (!cv) return;
   var ctx = cv.getContext('2d');
-  var W, H, DPR, stars, raf, t = 0;
+  var W, H, DPR, stars, nebs, raf, t = 0;
+
+  var PALETTE = [
+    [150, 110, 235],   // violeta
+    [90, 140, 225],    // azul
+    [220, 110, 175],   // magenta
+    [95, 190, 190],    // teal
+    [222, 172, 120]    // champagne
+  ];
 
   function build() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
     W = cv.width = Math.floor(window.innerWidth * DPR);
     H = cv.height = Math.floor(window.innerHeight * DPR);
-    var count = Math.round((window.innerWidth * window.innerHeight) / 9000);
-    count = Math.max(90, Math.min(count, 260));
+
+    var count = Math.round((window.innerWidth * window.innerHeight) / 8000);
+    count = Math.max(90, Math.min(count, 280));
     stars = [];
     for (var i = 0; i < count; i++) {
-      var z = Math.random() * 0.8 + 0.2;         // profundidad
-      stars.push({
+      var z = Math.random() * 0.8 + 0.2;
+      stars.push({ x: Math.random() * W, y: Math.random() * H, z: z, r: (z * 1.4 + 0.25) * DPR, tw: Math.random() * 6.2832 });
+    }
+
+    nebs = [];
+    var nn = 7;
+    for (var j = 0; j < nn; j++) {
+      nebs.push({
         x: Math.random() * W,
-        y: Math.random() * H,
-        z: z,
-        r: (z * 1.4 + 0.25) * DPR,
-        tw: Math.random() * 6.2832
+        y: Math.random() * H * 2,               // repartidas en 2 pantallas
+        r: (Math.random() * 0.28 + 0.24) * H,   // grandes y suaves
+        z: Math.random() * 0.22 + 0.10,         // lejanas => se mueven lento
+        col: PALETTE[j % PALETTE.length],
+        a: Math.random() * 0.06 + 0.11          // alpha .11 - .17
       });
     }
+  }
+
+  function drawNeb(n, y) {
+    if (y + n.r < 0 || y - n.r > H) return;
+    var c = n.col;
+    var g = ctx.createRadialGradient(n.x, y, 0, n.x, y, n.r);
+    g.addColorStop(0, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + n.a + ')');
+    g.addColorStop(1, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(n.x - n.r, y - n.r, n.r * 2, n.r * 2);
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
     var sc = (window.scrollY || 0) * DPR;
+    var per = H * 2;
+
+    // galaxias (aditivas para que brillen)
+    ctx.globalCompositeOperation = 'lighter';
+    for (var j = 0; j < nebs.length; j++) {
+      var n = nebs[j];
+      var ny = ((n.y - sc * n.z * 0.25) % per + per) % per;
+      drawNeb(n, ny);
+      drawNeb(n, ny - per);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    // estrellas
     for (var i = 0; i < stars.length; i++) {
       var s = stars[i];
-      var y = ((s.y - sc * s.z * 0.25) % H + H) % H;   // parallax + loop infinito
-      var a = 0.25 + (0.5 + 0.5 * Math.sin(t * 0.001 * s.z + s.tw)) * 0.55 * s.z; // titileo
+      var y = ((s.y - sc * s.z * 0.25) % H + H) % H;
+      var a = 0.25 + (0.5 + 0.5 * Math.sin(t * 0.001 * s.z + s.tw)) * 0.55 * s.z;
       ctx.globalAlpha = a;
       ctx.beginPath();
       ctx.arc(s.x, y, s.r, 0, 6.2832);
@@ -319,21 +357,17 @@
       ctx.fill();
     }
     ctx.globalAlpha = 1;
-    if (neb) neb.style.transform = 'translateY(' + ((window.scrollY || 0) * 0.05) + 'px)';
   }
 
   function loop() { t += 16; draw(); raf = requestAnimationFrame(loop); }
 
-  function start() {
+  function startFx() {
     build();
     if (raf) cancelAnimationFrame(raf);
     if (reduced) { draw(); } else { loop(); }
   }
 
-  start();
+  startFx();
   var rz;
-  window.addEventListener('resize', function () {
-    clearTimeout(rz);
-    rz = setTimeout(start, 200);
-  });
+  window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(startFx, 200); });
 })();
