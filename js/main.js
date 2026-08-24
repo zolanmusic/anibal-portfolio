@@ -247,3 +247,28 @@
     track.innerHTML += track.innerHTML;
   }
 })();
+
+/* =========================================================================
+   Spinner de carga por imagen: muestra un anillo girando mientras la
+   imagen descarga y hace fade-in al terminar. Cubre piezas y marcas
+   (incluidas las tarjetas duplicadas del marquee).
+   ========================================================================= */
+(function () {
+  "use strict";
+  function attach(container) {
+    if (!container) return;
+    var img = container.querySelector('img');
+    if (!img) return;
+    var sp = document.createElement('span');
+    sp.className = 'img-spinner';
+    container.appendChild(sp);
+    function done() { container.classList.add('is-loaded'); }
+    if (img.complete && img.naturalWidth > 0) { done(); }
+    else {
+      img.addEventListener('load', done);
+      img.addEventListener('error', done); // no dejar el spinner pegado si falla
+    }
+  }
+  Array.prototype.slice.call(document.querySelectorAll('#sc-stage .piece')).forEach(attach);
+  Array.prototype.slice.call(document.querySelectorAll('.site-preview')).forEach(attach);
+})();

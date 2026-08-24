@@ -250,6 +250,22 @@ body.motion .hgallery.pinned .htrack-wrap{overflow:visible}
 .sp-saas .p-hero{background:linear-gradient(120deg,#eaf0ff,#dbe6ff);color:#2b4a8a}
 .sp-saas .p-row i{background:#e5ecfb}
 
+/* ---------- Spinner de carga de imágenes ---------- */
+.piece,.site-preview{position:relative}
+.piece img,.site-preview img{opacity:0;transition:opacity .7s ease}
+.piece.is-loaded img,.site-preview.is-loaded img{opacity:1}
+body.motion .piece:not(.is-loaded){min-width:280px;min-height:360px}
+.piece{color:#D9A79B}
+.site-preview{color:#8A3A2E}
+.img-spinner{position:absolute;top:50%;left:50%;width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 6%,currentColor);
+  -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 calc(100% - 3px));
+          mask:radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 calc(100% - 3px));
+  animation:img-spin .9s linear infinite;pointer-events:none;opacity:.9;transition:opacity .45s ease;z-index:2}
+.is-loaded .img-spinner{opacity:0}
+@keyframes img-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.img-spinner{animation-duration:1.6s}}
+
 /* ---------- Responsive ---------- */
 @media (max-width:1000px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.svc-grid{grid-template-columns:1fr}}
