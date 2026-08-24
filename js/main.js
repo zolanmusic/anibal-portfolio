@@ -168,28 +168,37 @@
   window.addEventListener('load', function () { measure(); update(); });
 
   /* Botón de menú móvil -> salta al showcase */
-  /* Menú móvil: abre/cierra overlay */
+  /* Menú móvil: overlay dedicado, hijo de body (evita bugs de posición del header) */
   var mb = document.getElementById('menu-btn');
-  if (mb) {
+  var headerNav = document.querySelector('header nav');
+  if (mb && headerNav) {
+    var mm = document.createElement('div');
+    mm.id = 'mobile-menu';
+    var html = '';
+    Array.prototype.slice.call(headerNav.querySelectorAll('a')).forEach(function (a) {
+      html += '<a href="' + a.getAttribute('href') + '">' + a.textContent + '</a>';
+    });
+    html += '<button class="lang-toggle" aria-label="Switch language"><span data-l="es">ES</span><span class="sep">·</span><span data-l="en">EN</span></button>';
+    mm.innerHTML = html;
+    document.body.appendChild(mm);
+
+    var TT = function (s) { return window.__T ? window.__T(s) : s; };
+    function closeMenu() {
+      document.body.classList.remove('nav-open');
+      mb.textContent = TT('Menú');
+      mb.setAttribute('aria-expanded', 'false');
+    }
     mb.setAttribute('aria-expanded', 'false');
     mb.addEventListener('click', function () {
       var open = document.body.classList.toggle('nav-open');
-      mb.textContent = open ? (window.__T ? window.__T('Cerrar') : 'Cerrar') : (window.__T ? window.__T('Menú') : 'Menú');
+      mb.textContent = open ? TT('Cerrar') : TT('Menú');
       mb.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    Array.prototype.slice.call(document.querySelectorAll('nav a')).forEach(function (a) {
-      a.addEventListener('click', function () {
-        document.body.classList.remove('nav-open');
-        mb.textContent = window.__T ? window.__T('Menú') : 'Menú';
-        mb.setAttribute('aria-expanded', 'false');
-      });
+    Array.prototype.slice.call(mm.querySelectorAll('a')).forEach(function (a) {
+      a.addEventListener('click', closeMenu);
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
-        document.body.classList.remove('nav-open');
-        mb.textContent = window.__T ? window.__T('Menú') : 'Menú';
-        mb.setAttribute('aria-expanded', 'false');
-      }
+      if (e.key === 'Escape' && document.body.classList.contains('nav-open')) closeMenu();
     });
   }
 })();
@@ -525,6 +534,7 @@
     var mb = document.getElementById('menu-btn');
     if (mb && !document.body.classList.contains('nav-open')) mb.textContent = en ? 'Menu' : 'Menú';
     if (toggle) toggle.querySelectorAll('span[data-l]').forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-l') === lang); });
+    Array.prototype.slice.call(document.querySelectorAll('.lang-toggle span[data-l]')).forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-l') === lang); });
     try { window.dispatchEvent(new Event('scroll')); } catch (e) {}
   }
 
@@ -537,21 +547,23 @@
     return 'en';
   }
 
-  // selector ES/EN dentro del nav (aparece también en el menú móvil)
-  var nav = document.querySelector('nav');
+  // selector ES/EN: uno en el header (desktop) + el del menú móvil (ya creado)
+  var nav = document.querySelector('header nav');
   if (nav) {
     toggle = document.createElement('button');
     toggle.className = 'lang-toggle';
     toggle.setAttribute('aria-label', 'Cambiar idioma / Switch language');
     toggle.innerHTML = '<span data-l="es">ES</span><span class="sep">·</span><span data-l="en">EN</span>';
     nav.appendChild(toggle);
-    toggle.addEventListener('click', function (e) {
+  }
+  Array.prototype.slice.call(document.querySelectorAll('.lang-toggle')).forEach(function (tg) {
+    tg.addEventListener('click', function (e) {
       var sp = e.target.closest('span[data-l]');
       var next = sp ? sp.getAttribute('data-l') : (window.__lang === 'es' ? 'en' : 'es');
       try { localStorage.setItem('lang', next); } catch (er) {}
       apply(next);
     });
-  }
+  });
 
   apply(detect());
 })();
