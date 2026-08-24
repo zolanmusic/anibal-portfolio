@@ -259,15 +259,15 @@
     if (!container) return;
     var img = container.querySelector('img');
     if (!img) return;
+    if (img.complete && img.naturalWidth > 0) { container.classList.add('is-loaded'); return; }
     var sp = document.createElement('span');
     sp.className = 'img-spinner';
+    sp.style.opacity = '0';                        // oculto al inicio
     container.appendChild(sp);
-    function done() { container.classList.add('is-loaded'); }
-    if (img.complete && img.naturalWidth > 0) { done(); }
-    else {
-      img.addEventListener('load', done);
-      img.addEventListener('error', done); // no dejar el spinner pegado si falla
-    }
+    var t = setTimeout(function () { sp.style.opacity = ''; }, 220); // solo si tarda >0.22s
+    function done() { clearTimeout(t); container.classList.add('is-loaded'); }
+    img.addEventListener('load', done);
+    img.addEventListener('error', done); // no dejar el spinner pegado si falla
   }
   Array.prototype.slice.call(document.querySelectorAll('#sc-stage .piece')).forEach(attach);
   Array.prototype.slice.call(document.querySelectorAll('.site-preview')).forEach(attach);
