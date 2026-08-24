@@ -40,6 +40,8 @@
   /* ---- Referencias del showcase ---- */
   var pieces = Array.prototype.slice.call(document.querySelectorAll('#sc-stage .piece'));
   var N = pieces.length;
+  // Más piezas => más recorrido de scroll, para que cada una respire.
+  if (motion && showcase) { showcase.style.height = (N * 82 + 120) + 'vh'; }
   var scIntro = document.getElementById('sc-intro');
   var scFill = document.getElementById('sc-fill');
   var scNum = document.getElementById('sc-num');
@@ -88,27 +90,32 @@
     if (M.scLen > 0) {
       var p = clamp((y - M.scStart) / M.scLen, 0, 1);
 
-      var ip = clamp(p / 0.12, 0, 1);           // intro se va temprano
+      var ip = clamp(p / 0.07, 0, 1);           // intro se va temprano
       scIntro.style.opacity = (1 - ip);
       scIntro.style.transform = 'translateY(' + (-ip * 80) + 'px) scale(' + (1 - ip * 0.06) + ')';
       scFill.style.height = (p * 100) + '%';
 
-      var startP = 0.14, endP = 0.96, spanP = (endP - startP);
+      // Cada pieza tiene su propio "segmento" de scroll con un tramo donde
+      // se ve SOLA (opacidad 1, vecinas ocultas) y transiciones rápidas.
+      var base = 0.08, span = 0.90, seg = span / N;
       var best = 0, bestD = 1e9;
       for (var k = 0; k < N; k++) {
-        var t = startP + spanP * (k / (N - 1));
-        var d = (p - t) / 0.12;                  // distancia normalizada al pico
-        var ad = Math.min(Math.abs(d), 1.6);
-        var op = clamp(1 - ad * 0.9, 0, 1);
-        var scale = 1 - Math.min(ad, 1) * 0.16;
-        var ty = d * -150;                        // sube al pasar
-        var ry = clamp(d, -1.4, 1.4) * 15;        // giro 3D
-        var tz = -Math.min(ad, 1) * 120;
+        var center = base + (k + 0.5) * seg;
+        var d = (p - center) / seg;               // 0 = su momento solo, ±1 = vecina
+        var adm = Math.abs(d);
+        // opacidad: plena mientras |d|<=0.22, baja a 0 en |d|=0.60 (solo limpio + crossfade corto)
+        var op = clamp(1 - (adm - 0.22) / 0.38, 0, 1);
+        var mv = clamp((adm - 0.10) / 0.5, 0, 1); // cuánto se alejó del centro
+        var sgn = d < 0 ? -1 : 1;
+        var ty = sgn * mv * -170;                 // entra desde abajo, sale hacia arriba
+        var ry = sgn * mv * 22;                   // giro 3D
+        var tz = -mv * 200;
+        var scale = 1 - mv * 0.16;
         pieces[k].style.opacity = op;
         pieces[k].style.transform =
           'translate(-50%,-50%) translate3d(0,' + ty + 'px,' + tz + 'px) rotateY(' + ry + 'deg) scale(' + scale + ')';
-        pieces[k].style.zIndex = Math.round(100 - ad * 50);
-        if (Math.abs(d) < bestD) { bestD = Math.abs(d); best = k; }
+        pieces[k].style.zIndex = Math.round(100 - adm * 60);
+        if (adm < bestD) { bestD = adm; best = k; }
       }
 
       if (best !== lastActive) {
