@@ -14,6 +14,9 @@
 <!-- anti-FOUC: activa el modo animado antes de pintar (respeta reduced-motion) -->
 <script>if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.body.classList.add('motion');</script>
 
+<div id="nebula" aria-hidden="true"></div>
+<canvas id="space" aria-hidden="true"></canvas>
+
 <header id="site-header">
   <a href="#top" class="brand"><img src="assets/anibal-solis-logo.png" alt="Aníbal Solis" class="brand-logo"></a>
   <nav>

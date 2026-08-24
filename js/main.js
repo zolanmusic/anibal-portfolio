@@ -272,3 +272,68 @@
   Array.prototype.slice.call(document.querySelectorAll('#sc-stage .piece')).forEach(attach);
   Array.prototype.slice.call(document.querySelectorAll('.site-preview')).forEach(attach);
 })();
+
+/* =========================================================================
+   Fondo espacial: campo de estrellas con parallax al scrollear + nebulosa.
+   Sutil y difuminado para no entorpecer la lectura. Respeta reduced-motion.
+   ========================================================================= */
+(function () {
+  "use strict";
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cv = document.getElementById('space');
+  var neb = document.getElementById('nebula');
+  if (!cv) return;
+  var ctx = cv.getContext('2d');
+  var W, H, DPR, stars, raf, t = 0;
+
+  function build() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.width = Math.floor(window.innerWidth * DPR);
+    H = cv.height = Math.floor(window.innerHeight * DPR);
+    var count = Math.round((window.innerWidth * window.innerHeight) / 9000);
+    count = Math.max(90, Math.min(count, 260));
+    stars = [];
+    for (var i = 0; i < count; i++) {
+      var z = Math.random() * 0.8 + 0.2;         // profundidad
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        z: z,
+        r: (z * 1.4 + 0.25) * DPR,
+        tw: Math.random() * 6.2832
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var sc = (window.scrollY || 0) * DPR;
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      var y = ((s.y - sc * s.z * 0.25) % H + H) % H;   // parallax + loop infinito
+      var a = 0.25 + (0.5 + 0.5 * Math.sin(t * 0.001 * s.z + s.tw)) * 0.55 * s.z; // titileo
+      ctx.globalAlpha = a;
+      ctx.beginPath();
+      ctx.arc(s.x, y, s.r, 0, 6.2832);
+      ctx.fillStyle = '#EDE6DA';
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (neb) neb.style.transform = 'translateY(' + ((window.scrollY || 0) * 0.05) + 'px)';
+  }
+
+  function loop() { t += 16; draw(); raf = requestAnimationFrame(loop); }
+
+  function start() {
+    build();
+    if (raf) cancelAnimationFrame(raf);
+    if (reduced) { draw(); } else { loop(); }
+  }
+
+  start();
+  var rz;
+  window.addEventListener('resize', function () {
+    clearTimeout(rz);
+    rz = setTimeout(start, 200);
+  });
+})();
