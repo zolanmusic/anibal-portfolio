@@ -40,6 +40,11 @@ nav a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(-
 nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:currentColor;transition:width .35s}
 nav a:hover{color:inherit}nav a:hover::after{width:100%}
 .menu-btn{display:none;background:none;border:none;font-family:var(--sans);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:inherit;cursor:pointer}
+.lang-toggle{background:none;border:1px solid var(--line);border-radius:30px;padding:.34rem .7rem;display:inline-flex;gap:.4rem;align-items:center;font-family:var(--sans);font-size:.68rem;letter-spacing:.14em;color:var(--taupe);cursor:pointer;transition:border-color .3s}
+.lang-toggle:hover{border-color:var(--ink)}
+.lang-toggle span{transition:color .3s}
+.lang-toggle span[data-l].on{color:var(--ink);font-weight:500}
+.lang-toggle .sep{opacity:.4}
 
 /* ---------- Hero ---------- */
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:8rem var(--pad) 3rem;position:relative;overflow:hidden}
@@ -285,6 +290,7 @@ body.motion .piece:not(.is-loaded){min-width:280px;min-height:360px}
   body.nav-open{overflow:hidden}
   nav a{font-size:1.5rem;letter-spacing:.12em;color:var(--ink)}
   nav a::after{display:none}
+  .lang-toggle{font-size:.9rem;margin-top:1.2rem;padding:.5rem 1rem}
   .about-grid{grid-template-columns:1fr}
   .work-item{grid-template-columns:auto 1fr;gap:1.2rem}
   .work-item .tags{grid-column:2;justify-content:flex-start;margin-top:.8rem;max-width:none}

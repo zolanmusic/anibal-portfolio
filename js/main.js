@@ -174,20 +174,20 @@
     mb.setAttribute('aria-expanded', 'false');
     mb.addEventListener('click', function () {
       var open = document.body.classList.toggle('nav-open');
-      mb.textContent = open ? 'Cerrar' : 'Menú';
+      mb.textContent = open ? (window.__T ? window.__T('Cerrar') : 'Cerrar') : (window.__T ? window.__T('Menú') : 'Menú');
       mb.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     Array.prototype.slice.call(document.querySelectorAll('nav a')).forEach(function (a) {
       a.addEventListener('click', function () {
         document.body.classList.remove('nav-open');
-        mb.textContent = 'Menú';
+        mb.textContent = window.__T ? window.__T('Menú') : 'Menú';
         mb.setAttribute('aria-expanded', 'false');
       });
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
         document.body.classList.remove('nav-open');
-        mb.textContent = 'Menú';
+        mb.textContent = window.__T ? window.__T('Menú') : 'Menú';
         mb.setAttribute('aria-expanded', 'false');
       }
     });
@@ -391,4 +391,167 @@
   startFx();
   var rz;
   window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(startFx, 200); });
+})();
+
+/* =========================================================================
+   i18n — Español/Inglés. Detecta idioma del navegador (es → español,
+   otro → inglés), permite cambiar manual y recuerda la elección.
+   ========================================================================= */
+(function () {
+  "use strict";
+  var STR = {
+    "Piezas":"Pieces","Trabajo":"Work","Disciplinas":"Expertise","Perfil":"Profile","Contacto":"Contact",
+    "Menú":"Menu","Cerrar":"Close",
+    "Portafolio · 2026":"Portfolio · 2026",
+    "Diseño publicitario,":"Advertising design,",
+    "y crecimiento digital.":"and digital growth.",
+    "Diseño piezas gráficas, creo y gestiono campañas de paid media en Meta, Google y TikTok, y construyo tiendas Shopify que crecen — de la estrategia a la ejecución.":
+      "I design graphic pieces, build and run paid media campaigns on Meta, Google and TikTok, and develop Shopify stores that grow — from strategy to execution.",
+    "Abierto a nuevas oportunidades":"Open to new opportunities",
+    "Diseño publicitario":"Advertising design",
+    "Key visuals, promos de performance, lanzamientos y contenido social — sistema de marca coherente, listo para pauta.":
+      "Key visuals, performance promos, launches and social content — a coherent brand system, ready to run.",
+    "Campaña · Print & Digital":"Campaign · Print & Digital",
+    "Producto · Key Visual":"Product · Key Visual",
+    "Social · Carrusel":"Social · Carousel",
+    "Campaña · Pieza":"Campaign · Piece",
+    "Estrategia y ejecución hands-on de campañas de performance. Diseño el embudo, produzco los creativos y optimizo por ROAS en las tres plataformas clave.":
+      "Hands-on strategy and execution of performance campaigns. I design the funnel, produce the creatives and optimize for ROAS across the three key platforms.",
+    "Inversión gestionada (CLP)":"Managed ad spend (CLP)",
+    "ROAS promedio":"Avg. ROAS",
+    "Campañas lanzadas":"Campaigns launched",
+    "Reducción de CPA":"CPA reduction",
+    "Prospecting y retargeting en Facebook e Instagram.":"Prospecting and retargeting on Facebook and Instagram.",
+    "Search, Shopping y Performance Max.":"Search, Shopping and Performance Max.",
+    "Contenido nativo y creativos de performance.":"Native content and performance creatives.",
+    "Ver detalle →":"View details →",
+    "Facebook e Instagram — full-funnel, de awareness a conversión.":"Facebook and Instagram — full-funnel, from awareness to conversion.",
+    "Intención de compra capturada en Search, Shopping y PMax.":"Purchase intent captured across Search, Shopping and PMax.",
+    "Creativos nativos que rinden como contenido, no como anuncio.":"Native creatives that perform like content, not ads.",
+    "Inversión (CLP)":"Ad spend (CLP)","Conversiones":"Conversions","Impresiones":"Impressions",
+    "Tipos de campaña":"Campaign types","Catálogo":"Catalog",
+    "Trabajo seleccionado":"Selected work","Sitios web":"Websites",
+    "Gestión y desarrollo de tiendas Shopify para Singolare, Amazing Care, United Footwear y Jose Herrera Bikinis: CRO, creación de secciones a medida y optimización de PDP y checkout.":
+      "Management and development of Shopify stores for Singolare, Amazing Care, United Footwear and Jose Herrera Bikinis: CRO, custom section building and PDP & checkout optimization.",
+    "Gestión":"Management",
+    "Monitor de fulfillment":"Fulfillment monitor",
+    "Automatización con Google Apps Script que integra Envíame y Shopify, con alertas estructuradas y disparadores diarios y semanales.":
+      "Google Apps Script automation integrating Envíame and Shopify, with structured alerts and daily and weekly triggers.",
+    "Automatización":"Automation","Integración":"Integration",
+    "Auditoría de descuentos":"Discount audit",
+    "Análisis de abuso de códigos con Shopify GraphQL: detección de patrones multicuenta y recomendaciones para proteger el margen.":
+      "Discount-code abuse analysis with Shopify GraphQL: multi-account pattern detection and recommendations to protect margin.",
+    "Estrategia":"Strategy",
+    "Marca y sitio de artista: animación de partículas, soporte multilingüe, sección de pre-save y audio ambiente. Desplegado en Vercel.":
+      "Artist brand and website: particle animation, multilingual support, pre-save section and ambient audio. Deployed on Vercel.",
+    "Diseño":"Design",
+    "Marcas & sitios":"Brands & sites","Con las que he trabajado":"That I've worked with",
+    "Moda premium":"Premium fashion","Medicina estética":"Aesthetic medicine",
+    "Calzado":"Footwear","Moda · Bikinis":"Fashion · Swimwear","Sitio de artista":"Artist site",
+    "Qué hago":"What I do",
+    "Key visuals, piezas para pauta, promos y sistemas de marca. Dirección visual premium y editorial.":
+      "Key visuals, ad creatives, promos and brand systems. Premium, editorial art direction.",
+    "Branding · Campañas · Social":"Branding · Campaigns · Social",
+    "Desarrollo a medida en Liquid, Theme Editor, GraphQL y gestión de catálogo.":
+      "Custom development in Liquid, Theme Editor, GraphQL and catalog management.",
+    "Desarrollo web":"Web development",
+    "Secciones y componentes personalizados, flujo con GitHub y despliegue en Vercel.":
+      "Custom sections and components, GitHub workflow and Vercel deployment.",
+    "SEO técnico, datos estructurados, redirecciones y visibilidad en buscadores de IA.":
+      "Technical SEO, structured data, redirects and visibility in AI search engines.",
+    "Estrategia y ejecución hands-on de campañas de performance: estructura de cuentas, creativos, segmentación y optimización por ROAS.":
+      "Hands-on strategy and execution of performance campaigns: account structure, creatives, targeting and ROAS optimization.",
+    "Medición confiable de punta a punta y tableros para decidir con datos.":
+      "Reliable end-to-end measurement and dashboards to decide with data.",
+    "Analítica & CRM":"Analytics & CRM",
+    "Flujos de retención y campañas segmentadas: bienvenida, carrito abandonado, post-compra y newsletters.":
+      "Retention flows and segmented campaigns: welcome, abandoned cart, post-purchase and newsletters.",
+    "Creatividad con oficio.":"Craft-driven creativity.",
+    "Soy Aníbal, diseñador y gestor de ecommerce con base en Santiago. Trabajo donde se cruzan la creatividad, el código y el crecimiento: concibo la pieza, construyo la solución técnica y la llevo a resultados.":
+      "I'm Aníbal, a designer and ecommerce manager based in Santiago. I work where creativity, code and growth meet: I conceive the piece, build the technical solution and drive it to results.",
+    "Originario de Argentina y radicado en Chile hace años, trabajo en español e inglés con clientes locales e internacionales. Me mueven los sistemas prácticos, la iteración rápida y construir cosas que funcionan.":
+      "Originally from Argentina and based in Chile for years, I work in Spanish and English with local and international clients. I'm driven by practical systems, fast iteration and building things that work.",
+    "Base":"Based in","Idiomas":"Languages","Español · Inglés":"Spanish · English",
+    "Rol actual":"Current role","Consultoría":"Consultancy",
+    "Diseñemos tu":"Let's design your","próxima campaña":"next campaign",
+    "© 2026 Aníbal Solis — Todos los derechos reservados":"© 2026 Aníbal Solis — All rights reserved",
+    "Diseño y desarrollo propio":"Designed & developed in-house"
+  };
+  var RICH = [{ sel: '#sc-intro h2', es: 'Piezas <em>gráficas</em>', en: 'Graphic <em>pieces</em>' }];
+  var TITLE = { es: 'Aníbal — Diseño · Paid Media · Ecommerce · Digital', en: 'Aníbal — Design · Paid Media · Ecommerce · Digital' };
+  var DESC = {
+    es: 'Portafolio de Aníbal. Diseño publicitario, campañas de paid media (Meta, Google, TikTok), ecommerce y desarrollo web para marcas que venden online.',
+    en: 'Portfolio of Aníbal. Advertising design, paid media campaigns (Meta, Google, TikTok), ecommerce and web development for brands that sell online.'
+  };
+
+  var nodes = [], collected = false;
+  function collect() {
+    if (collected) return; collected = true;
+    var rich = document.querySelector('#sc-intro h2');
+    if (rich) rich.classList.add('i18n-rich');
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentElement;
+        if (!p || p.closest('script,style,.i18n-rich,.lang-toggle')) return NodeFilter.FILTER_REJECT;
+        var tr = n.nodeValue.trim();
+        return (tr && STR.hasOwnProperty(tr)) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var node;
+    while ((node = walker.nextNode())) {
+      var raw = node.nodeValue, tr = raw.trim(), i = raw.indexOf(tr);
+      nodes.push({ node: node, es: tr, lead: raw.slice(0, i), trail: raw.slice(i + tr.length) });
+    }
+  }
+
+  var toggle, T;
+  function apply(lang) {
+    window.__lang = lang;
+    collect();
+    var en = (lang === 'en');
+    for (var i = 0; i < nodes.length; i++) {
+      var o = nodes[i];
+      o.node.nodeValue = o.lead + (en ? (STR[o.es] || o.es) : o.es) + o.trail;
+    }
+    RICH.forEach(function (r) { var el = document.querySelector(r.sel); if (el) el.innerHTML = en ? r.en : r.es; });
+    Array.prototype.slice.call(document.querySelectorAll('#sc-stage .piece')).forEach(function (fig) {
+      var es = fig.getAttribute('data-cap-es');
+      if (!es) { es = fig.getAttribute('data-cap'); fig.setAttribute('data-cap-es', es); }
+      fig.setAttribute('data-cap', en ? (STR[es] || es) : es);
+    });
+    document.documentElement.lang = lang;
+    document.title = en ? TITLE.en : TITLE.es;
+    var m = document.querySelector('meta[name="description"]'); if (m) m.setAttribute('content', en ? DESC.en : DESC.es);
+    var mb = document.getElementById('menu-btn');
+    if (mb && !document.body.classList.contains('nav-open')) mb.textContent = en ? 'Menu' : 'Menú';
+    if (toggle) toggle.querySelectorAll('span[data-l]').forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-l') === lang); });
+    try { window.dispatchEvent(new Event('scroll')); } catch (e) {}
+  }
+
+  window.__T = function (s) { return (window.__lang === 'en' && STR[s]) ? STR[s] : s; };
+
+  function detect() {
+    try { var s = localStorage.getItem('lang'); if (s === 'es' || s === 'en') return s; } catch (e) {}
+    var langs = navigator.languages || [navigator.language || 'en'];
+    for (var i = 0; i < langs.length; i++) { if ((langs[i] || '').toLowerCase().indexOf('es') === 0) return 'es'; }
+    return 'en';
+  }
+
+  // selector ES/EN dentro del nav (aparece también en el menú móvil)
+  var nav = document.querySelector('nav');
+  if (nav) {
+    toggle = document.createElement('button');
+    toggle.className = 'lang-toggle';
+    toggle.setAttribute('aria-label', 'Cambiar idioma / Switch language');
+    toggle.innerHTML = '<span data-l="es">ES</span><span class="sep">·</span><span data-l="en">EN</span>';
+    nav.appendChild(toggle);
+    toggle.addEventListener('click', function (e) {
+      var sp = e.target.closest('span[data-l]');
+      var next = sp ? sp.getAttribute('data-l') : (window.__lang === 'es' ? 'en' : 'es');
+      try { localStorage.setItem('lang', next); } catch (er) {}
+      apply(next);
+    });
+  }
+
+  apply(detect());
 })();
