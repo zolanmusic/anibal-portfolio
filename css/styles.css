@@ -30,7 +30,7 @@ header.on-dark{color:var(--ink)}
 header.on-dark.scrolled{background:rgba(14,12,10,.7);border-bottom-color:rgba(243,239,232,.14)}
 header.on-dark .brand small,header.on-dark nav a{color:rgba(243,239,232,.7)}
 .brand{font-family:var(--serif);font-size:1.55rem;font-weight:500;line-height:1;display:flex;align-items:center}
-.brand-logo{height:clamp(24px,3vw,32px);width:auto;display:block;filter:brightness(0) invert(1)}
+.brand-logo{height:clamp(36px,5vw,52px);width:auto;display:block;filter:brightness(0) invert(1)}
 .brand small{font-family:var(--sans);font-size:.62rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);display:block;margin-top:.25rem}
 nav{display:flex;gap:2.2rem;align-items:center}
 nav a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);position:relative;transition:color .3s}
