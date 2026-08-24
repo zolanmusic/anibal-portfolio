@@ -11,6 +11,7 @@ anibal-portfolio/
 ├── css/styles.css      Estilos (paleta, layout, animaciones)
 ├── js/main.js          Motor de scroll (parallax, showcase, galería, tilt)
 ├── assets/             Tus imágenes / artes reales
+├── vercel.json         Config opcional de Vercel (caché, headers, clean URLs)
 ├── README.md
 └── .gitignore
 ```
@@ -52,11 +53,15 @@ Recomendado: imágenes verticales ~3:4 (showcase) y ~4:5 (galería), optimizadas
 
 ## Pendientes por completar (busca y reemplaza)
 
+- **⚠️ Métricas de Paid Media:** los números de la sección "Paid Media" y de los
+  modales (ROAS, inversión, CTR, etc.) son **de ejemplo**. Reemplázalos por tus
+  cifras reales antes de mostrar el sitio — están marcados con `⚠️` en `index.html`.
+- **Carrusel "Marcas & sitios":** cada mini-home es un placeholder CSS. Cambia
+  `.site-preview` por un `<img>` con un screenshot real, y ajusta el `href` y el
+  texto de `.url` a cada dominio.
 - `hola@tudominio.com` → tu email real (aparece 2 veces).
 - Enlaces `href="#"` de **LinkedIn** y **CV / Resume** en la sección de contacto.
 - Apellido en el logo (`<a class="brand">Aníbal…`) si quieres nombre completo.
-- Métricas concretas en las descripciones de proyectos, si quieres presumirlas
-  (redirecciones, nº de productos, uplift, etc.).
 
 ## Desplegar en Vercel
 
@@ -67,6 +72,10 @@ Recomendado: imágenes verticales ~3:4 (showcase) y ~4:5 (galería), optimizadas
    - Output Directory: *(vacío / raíz)*
 4. Deploy. Cada push a `main` redepliega solo.
 5. Dominio propio: **Settings → Domains** (igual que hiciste con ZØLAN).
+
+> **`vercel.json` es opcional.** El sitio despliega sin él. Se incluye solo para
+> mejorar la caché de `assets/`, `css/` y `js/`, agregar headers de seguridad y
+> activar clean URLs. Si no lo quieres, puedes borrarlo sin afectar el deploy.
 
 ## Accesibilidad y rendimiento
 

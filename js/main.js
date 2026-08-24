@@ -163,3 +163,78 @@
     document.getElementById('showcase').scrollIntoView({ behavior: 'smooth' });
   });
 })();
+
+/* =========================================================================
+   Extras: count-up de métricas, modales de Paid Media, loop del marquee
+   ========================================================================= */
+(function () {
+  "use strict";
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Count-up de las métricas de Paid Media ---- */
+  var stats = Array.prototype.slice.call(document.querySelectorAll('.stat .v[data-target]'));
+  function animateStat(el) {
+    var target = parseFloat(el.getAttribute('data-target'));
+    var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    var pre = el.getAttribute('data-prefix') || '';
+    var suf = el.getAttribute('data-suffix') || '';
+    if (reduced) { el.textContent = pre + target.toFixed(dec) + suf; return; }
+    var start = performance.now(), dur = 1400;
+    function tick(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      el.textContent = pre + (target * e).toFixed(dec) + suf;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var paid = document.getElementById('paid');
+  if (paid && stats.length) {
+    var seen = false;
+    var io2 = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !seen) { seen = true; stats.forEach(animateStat); io2.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    io2.observe(paid);
+  }
+
+  /* ---- Modales de plataforma ---- */
+  var lastFocus = null;
+  function openModal(key) {
+    var ov = document.getElementById('modal-' + key);
+    if (!ov) return;
+    lastFocus = document.activeElement;
+    ov.classList.add('open');
+    ov.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var c = ov.querySelector('.close');
+    if (c) c.focus();
+  }
+  function closeModal(ov) {
+    ov.classList.remove('open');
+    ov.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  Array.prototype.slice.call(document.querySelectorAll('[data-modal]')).forEach(function (btn) {
+    btn.addEventListener('click', function () { openModal(btn.getAttribute('data-modal')); });
+  });
+  Array.prototype.slice.call(document.querySelectorAll('.modal-overlay')).forEach(function (ov) {
+    ov.addEventListener('click', function (e) { if (e.target === ov) closeModal(ov); });
+    var c = ov.querySelector('.close');
+    if (c) c.addEventListener('click', function () { closeModal(ov); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      var open = document.querySelector('.modal-overlay.open');
+      if (open) closeModal(open);
+    }
+  });
+
+  /* ---- Marquee sin costuras: duplica las tarjetas (solo con motion) ---- */
+  var track = document.getElementById('marquee-track');
+  if (track && !reduced) {
+    track.innerHTML += track.innerHTML;
+  }
+})();
