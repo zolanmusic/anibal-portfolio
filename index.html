@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aníbal — Diseño publicitario · Ecommerce · Desarrollo</title>
+<meta name="description" content="Portafolio de Aníbal. Diseño publicitario, piezas gráficas, ecommerce, desarrollo web y SEO/SEM para marcas que venden online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- anti-FOUC: activa el modo animado antes de pintar (respeta reduced-motion) -->
+<script>if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.body.classList.add('motion');</script>
+
+<header id="site-header">
+  <a href="#top" class="brand">Aníbal<small>Diseño · Ecommerce · Digital</small></a>
+  <nav>
+    <a href="#showcase">Piezas</a>
+    <a href="#work">Trabajo</a>
+    <a href="#services">Disciplinas</a>
+    <a href="#about">Perfil</a>
+    <a href="#contact">Contacto</a>
+  </nav>
+  <button class="menu-btn" id="menu-btn" aria-label="Ir a piezas">Menú</button>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <span class="ghost layer" data-speed="0.25">A</span>
+    <div class="wrap" style="padding:0">
+      <div class="meta-top reveal layer" data-speed="0.05">
+        <span class="eyebrow">Portafolio · 2026</span>
+        <span class="eyebrow">Santiago, Chile</span>
+      </div>
+      <h1 class="reveal layer" data-speed="0.12">Diseño publicitario, <em>ecommerce</em> y crecimiento digital.</h1>
+      <p class="lede reveal layer" data-speed="0.18">Diseño piezas gráficas que venden, construyo tiendas Shopify a medida y las hago crecer — del key visual a la arquitectura técnica.</p>
+      <div class="foot reveal">
+        <div class="avail"><span class="dot"></span> Abierto a nuevas oportunidades</div>
+        <span class="scroll-cue">Scroll ↓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SHOWCASE: PIEZAS GRÁFICAS (protagonista) ============ -->
+  <section id="showcase" class="showcase" data-scene="showcase">
+    <div class="sticky">
+      <div class="glow" id="glow"></div>
+      <div class="intro" id="sc-intro">
+        <span class="eyebrow">Diseño publicitario</span>
+        <h2>Piezas <em>gráficas</em></h2>
+        <p>Key visuals, promos de performance, lanzamientos y contenido social — sistema de marca coherente, listo para pauta.</p>
+      </div>
+
+      <!-- ================================================================
+           STAGE — reemplaza cada <div class="art artX"> por tu arte real:
+           <img src="assets/pieza-01.jpg" alt="..."
+                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+           La animación de scroll funciona igual con imágenes.
+      ================================================================= -->
+      <div class="stage" id="sc-stage">
+        <figure class="piece" data-cap="Campaña · Print &amp; Digital">
+          <div class="art art1"><span class="kick">Nueva colección</span><span class="big">Ritual<br>de piel</span></div>
+          <figcaption class="cap">Campaña · Print &amp; Digital</figcaption>
+        </figure>
+        <figure class="piece" data-cap="Promo · Performance">
+          <div class="art art2"><span class="kick">Skincare Week</span><span class="big">−30%</span></div>
+          <figcaption class="cap">Promo · Performance</figcaption>
+        </figure>
+        <figure class="piece" data-cap="Producto · Key Visual">
+          <div class="art art3"><span class="kick">Serum · Edición</span><span class="big">Glow<br>Sistema</span></div>
+          <figcaption class="cap">Producto · Key Visual</figcaption>
+        </figure>
+        <figure class="piece" data-cap="Social · Carrusel">
+          <div class="art art4"><div class="grid4"><span>01</span><span>02</span><span>03</span><span>04</span></div></div>
+          <figcaption class="cap">Social · Carrusel</figcaption>
+        </figure>
+        <figure class="piece" data-cap="Editorial · Lookbook">
+          <div class="art art5"><span class="kick">Campaña 2026</span><span class="big">Materia<br>&amp; luz</span></div>
+          <figcaption class="cap">Editorial · Lookbook</figcaption>
+        </figure>
+      </div>
+
+      <div class="hud">
+        <div class="count"><span id="sc-num">01</span><small> / 05</small></div>
+        <div class="active-cap" id="sc-cap">Campaña · Print &amp; Digital</div>
+      </div>
+      <div class="rail"><div class="fill" id="sc-fill"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ TRABAJO ============ -->
+  <section id="work" class="wrap">
+    <div class="sec-head reveal"><h2>Trabajo seleccionado</h2><span class="sec-index">Índice / 05</span></div>
+    <div class="work-list" id="work-list">
+      <article class="work-item tilt reveal">
+        <span class="num">01</span>
+        <div><h3 class="title">Singolare</h3><p class="role">Gestión integral del ecommerce y renovación SEO/GEO: redirecciones a escala, schemas JSON-LD, secciones Liquid a medida y rediseño editorial del home.</p></div>
+        <div class="tags"><span>Ecommerce</span><span>Shopify</span><span>SEO/GEO</span></div>
+      </article>
+      <article class="work-item tilt reveal">
+        <span class="num">02</span>
+        <div><h3 class="title">Outback Surf</h3><p class="role">Montaje de tienda Shopify para cliente en Nueva Zelanda vía Cachai Solutions: catálogo completo, migración de productos y estructura comercial.</p></div>
+        <div class="tags"><span>Consultoría</span><span>Catálogo</span><span>Migración</span></div>
+      </article>
+      <article class="work-item tilt reveal">
+        <span class="num">03</span>
+        <div><h3 class="title">Monitor de fulfillment</h3><p class="role">Automatización con Google Apps Script que integra Envíame y Shopify, con alertas estructuradas y disparadores diarios y semanales.</p></div>
+        <div class="tags"><span>Automatización</span><span>Integración</span><span>Ops</span></div>
+      </article>
+      <article class="work-item tilt reveal">
+        <span class="num">04</span>
+        <div><h3 class="title">Auditoría de descuentos</h3><p class="role">Análisis de abuso de códigos con Shopify GraphQL: detección de patrones multicuenta y recomendaciones para proteger el margen.</p></div>
+        <div class="tags"><span>Data</span><span>GraphQL</span><span>Estrategia</span></div>
+      </article>
+      <article class="work-item tilt reveal">
+        <span class="num">05</span>
+        <div><h3 class="title">ZØLAN</h3><p class="role">Marca y sitio de artista: animación de partículas, soporte multilingüe, sección de pre-save y audio ambiente. Desplegado en Vercel.</p></div>
+        <div class="tags"><span>Diseño</span><span>Front-end</span><span>Branding</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ GALERÍA HORIZONTAL ============ -->
+  <section class="hgallery" id="hgallery" data-scene="hgallery">
+    <div class="hsticky">
+      <div class="hhead">
+        <div class="sec-head reveal" style="margin-bottom:0"><h2>Índice visual</h2><span class="sec-index">Scroll →</span></div>
+      </div>
+      <div class="htrack-wrap">
+        <div class="htrack" id="htrack">
+          <figure class="hcard"><div class="art art1"><span class="kick">Editorial</span><span class="big" style="font-size:1.8rem">Piel</span></div><figcaption class="cap">Print</figcaption></figure>
+          <figure class="hcard"><div class="art art2"><span class="kick">Promo</span><span class="big" style="font-size:2.4rem">−30%</span></div><figcaption class="cap">Performance</figcaption></figure>
+          <figure class="hcard"><div class="art art3"><span class="kick">Producto</span><span class="big" style="font-size:1.5rem">Glow</span></div><figcaption class="cap">Key Visual</figcaption></figure>
+          <figure class="hcard"><div class="art art5"><span class="kick">Campaña</span><span class="big" style="font-size:1.9rem">Materia</span></div><figcaption class="cap">Lookbook</figcaption></figure>
+          <figure class="hcard"><div class="art art4"><div class="grid4"><span>A</span><span>B</span><span>C</span><span>D</span></div></div><figcaption class="cap">Social</figcaption></figure>
+          <figure class="hcard"><div class="art art1"><span class="kick">Banner</span><span class="big" style="font-size:1.7rem">Web</span></div><figcaption class="cap">Display</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DISCIPLINAS ============ -->
+  <section id="services" class="wrap">
+    <div class="sec-head reveal"><h2>Disciplinas</h2><span class="sec-index">Qué hago</span></div>
+    <div class="svc-grid reveal">
+      <div class="svc"><span class="n">01</span><h3>Diseño publicitario</h3><p>Key visuals, piezas para pauta, promos y sistemas de marca. Dirección visual premium y editorial.</p><p class="stack">Branding · Campañas · Social</p></div>
+      <div class="svc"><span class="n">02</span><h3>Ecommerce &amp; Shopify</h3><p>Desarrollo a medida en Liquid, Theme Editor, GraphQL y gestión de catálogo.</p><p class="stack">Liquid · GitHub · GraphQL</p></div>
+      <div class="svc"><span class="n">03</span><h3>Desarrollo web</h3><p>Secciones y componentes personalizados, flujo con GitHub y despliegue en Vercel.</p><p class="stack">HTML/CSS/JS · Vercel</p></div>
+      <div class="svc"><span class="n">04</span><h3>SEO &amp; GEO</h3><p>SEO técnico, datos estructurados, redirecciones y visibilidad en buscadores de IA.</p><p class="stack">Search Console · Schema</p></div>
+      <div class="svc"><span class="n">05</span><h3>SEM &amp; Paid Media</h3><p>Estrategia de medios pagados y foco en performance sobre el objetivo comercial.</p><p class="stack">Google Ads · Meta</p></div>
+      <div class="svc"><span class="n">06</span><h3>Analítica &amp; CRM</h3><p>Medición de punta a punta y automatización de ciclos de vida por email.</p><p class="stack">GA4 · GTM · Klaviyo</p></div>
+    </div>
+  </section>
+
+  <!-- ============ PERFIL ============ -->
+  <section id="about" class="wrap">
+    <div class="about-grid">
+      <div class="reveal"><span class="eyebrow">Perfil</span><p class="label" style="margin-top:1.2rem">Creatividad con oficio.</p></div>
+      <div class="reveal">
+        <p>Soy Aníbal, diseñador y gestor de ecommerce con base en Santiago. Trabajo donde se cruzan la creatividad, el código y el crecimiento: concibo la pieza, construyo la solución técnica y la llevo a resultados.</p>
+        <p>Originario de Argentina y radicado en Chile hace años, trabajo en español e inglés con clientes locales e internacionales. Me mueven los sistemas prácticos, la iteración rápida y construir cosas que funcionan.</p>
+        <dl class="facts">
+          <div><dt>Base</dt><dd>Santiago, Chile</dd></div>
+          <div><dt>Idiomas</dt><dd>Español · Inglés</dd></div>
+          <div><dt>Rol actual</dt><dd>Ecommerce Store Manager</dd></div>
+          <div><dt>Consultoría</dt><dd>Cachai Solutions</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <span class="eyebrow">Contacto</span>
+      <h2>Diseñemos tu <a href="mailto:hola@tudominio.com">próxima campaña</a>.</h2>
+      <div class="links">
+        <a href="mailto:hola@tudominio.com">Email</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" target="_blank" rel="noopener">CV / Resume</a>
+      </div>
+      <div class="colophon"><span>© 2026 Aníbal — Todos los derechos reservados</span><span>Diseñado y desarrollado en Santiago</span></div>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
