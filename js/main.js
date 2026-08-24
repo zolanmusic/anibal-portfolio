@@ -35,7 +35,7 @@
   /* ---- Galería horizontal: pin solo en desktop ---- */
   var hgallery = document.getElementById('hgallery');
   var htrack = document.getElementById('htrack');
-  if (motion && isDesktop) { hgallery.classList.add('pinned'); }
+  if (motion && isDesktop && hgallery) { hgallery.classList.add('pinned'); }
 
   /* ---- Referencias del showcase ---- */
   var pieces = Array.prototype.slice.call(document.querySelectorAll('#sc-stage .piece'));
@@ -57,9 +57,11 @@
     var s = showcase.getBoundingClientRect();
     M.scStart = s.top + window.scrollY;
     M.scLen = showcase.offsetHeight - window.innerHeight;
-    var h = hgallery.getBoundingClientRect();
-    M.hStart = h.top + window.scrollY;
-    M.hLen = hgallery.offsetHeight - window.innerHeight;
+    if (hgallery) {
+      var h = hgallery.getBoundingClientRect();
+      M.hStart = h.top + window.scrollY;
+      M.hLen = hgallery.offsetHeight - window.innerHeight;
+    } else { M.hStart = 0; M.hLen = 0; }
     if (htrack) { M.trackOver = Math.max(0, htrack.scrollWidth - window.innerWidth + 40); }
     M.vh = window.innerHeight;
   }
