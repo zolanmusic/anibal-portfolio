@@ -75,7 +75,7 @@ body.motion .showcase{height:560vh}
 body.motion .showcase .sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
 body.motion .showcase .intro{position:absolute;top:0;left:0;right:0;z-index:5;will-change:transform,opacity;padding-top:22vh}
 body.motion .stage{position:absolute;inset:0;display:block;padding:0;max-width:none;perspective:1600px}
-body.motion .piece{position:absolute;top:50%;left:50%;width:auto;margin:0;transform:translate(-50%,-50%);will-change:transform,opacity;backface-visibility:hidden}
+body.motion .piece{position:absolute;top:50%;left:50%;display:flex;width:auto;height:auto;margin:0;transform:translate(-50%,-50%);will-change:transform,opacity;backface-visibility:hidden}
 body.motion .piece img{width:auto;height:auto;max-height:74vh;max-width:min(82vw,1040px)}
 body.motion .piece .cap{display:none}
 
