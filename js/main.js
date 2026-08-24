@@ -415,15 +415,15 @@
     "Diseño publicitario,":"Advertising design,",
     "y crecimiento digital.":"and digital growth.",
     "Diseño piezas gráficas, creo y gestiono campañas de paid media en Meta, Google y TikTok, y construyo tiendas Shopify que crecen — de la estrategia a la ejecución.":
-      "I design graphic pieces, build and run paid media campaigns on Meta, Google and TikTok, and develop Shopify stores that grow — from strategy to execution.",
+"I design creative assets, build and run paid media campaigns on Meta, Google and TikTok, and develop Shopify stores that grow — from strategy to execution.",
     "Abierto a nuevas oportunidades":"Open to new opportunities",
     "Diseño publicitario":"Advertising design",
     "Key visuals, promos de performance, lanzamientos y contenido social — sistema de marca coherente, listo para pauta.":
-      "Key visuals, performance promos, launches and social content — a coherent brand system, ready to run.",
+"Key visuals, performance creatives, launches and social content — a coherent brand system, ready to run.",
     "Campaña · Print & Digital":"Campaign · Print & Digital",
     "Producto · Key Visual":"Product · Key Visual",
     "Social · Carrusel":"Social · Carousel",
-    "Campaña · Pieza":"Campaign · Piece",
+    "Campaña · Pieza":"Campaign · Creative asset",
     "Estrategia y ejecución hands-on de campañas de performance. Diseño el embudo, produzco los creativos y optimizo por ROAS en las tres plataformas clave.":
       "Hands-on strategy and execution of performance campaigns. I design the funnel, produce the creatives and optimize for ROAS across the three key platforms.",
     "Inversión gestionada (CLP)":"Managed ad spend (CLP)",
@@ -459,7 +459,7 @@
     "Calzado":"Footwear","Moda · Bikinis":"Fashion · Swimwear","Sitio de artista":"Artist site",
     "Qué hago":"What I do",
     "Key visuals, piezas para pauta, promos y sistemas de marca. Dirección visual premium y editorial.":
-      "Key visuals, ad creatives, promos and brand systems. Premium, editorial art direction.",
+"Key visuals, ad creatives, promos and brand systems. Premium, editorial art direction.",
     "Branding · Campañas · Social":"Branding · Campaigns · Social",
     "Desarrollo a medida en Liquid, Theme Editor, GraphQL y gestión de catálogo.":
       "Custom development in Liquid, Theme Editor, GraphQL and catalog management.",
@@ -486,7 +486,7 @@
     "© 2026 Aníbal Solis — Todos los derechos reservados":"© 2026 Aníbal Solis — All rights reserved",
     "Diseño y desarrollo propio":"Designed & developed in-house"
   };
-  var RICH = [{ sel: '#sc-intro h2', es: 'Piezas <em>gráficas</em>', en: 'Graphic <em>pieces</em>' }];
+  var RICH = [{ sel: '#sc-intro h2', es: 'Piezas <em>gráficas</em>', en: 'Creative <em>assets</em>' }];
   var TITLE = { es: 'Aníbal — Diseño · Paid Media · Ecommerce · Digital', en: 'Aníbal — Design · Paid Media · Ecommerce · Digital' };
   var DESC = {
     es: 'Portafolio de Aníbal. Diseño publicitario, campañas de paid media (Meta, Google, TikTok), ecommerce y desarrollo web para marcas que venden online.',
