@@ -314,6 +314,11 @@
   if (!cv) return;
   var ctx = cv.getContext('2d');
   var W, H, DPR, stars, nebs, raf, t = 0;
+  var mxr = 0, myr = 0, tmxr = 0, tmyr = 0;   // reactividad al cursor
+  window.addEventListener('mousemove', function (e) {
+    tmxr = (e.clientX / window.innerWidth - 0.5);
+    tmyr = (e.clientY / window.innerHeight - 0.5);
+  }, { passive: true });
 
   var PALETTE = [
     [150, 110, 235],   // violeta
@@ -352,12 +357,13 @@
 
   function drawNeb(n, y) {
     if (y + n.r < 0 || y - n.r > H) return;
+    var x = n.x + mxr * n.z * 140 * DPR;
     var c = n.col;
-    var g = ctx.createRadialGradient(n.x, y, 0, n.x, y, n.r);
+    var g = ctx.createRadialGradient(x, y, 0, x, y, n.r);
     g.addColorStop(0, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + n.a + ')');
     g.addColorStop(1, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',0)');
     ctx.fillStyle = g;
-    ctx.fillRect(n.x - n.r, y - n.r, n.r * 2, n.r * 2);
+    ctx.fillRect(x - n.r, y - n.r, n.r * 2, n.r * 2);
   }
 
   function draw() {
@@ -382,14 +388,14 @@
       var a = 0.25 + (0.5 + 0.5 * Math.sin(t * 0.001 * s.z + s.tw)) * 0.55 * s.z;
       ctx.globalAlpha = a;
       ctx.beginPath();
-      ctx.arc(s.x, y, s.r, 0, 6.2832);
+      ctx.arc(s.x + mxr * s.z * 48 * DPR, y + myr * s.z * 48 * DPR, s.r, 0, 6.2832);
       ctx.fillStyle = '#EDE6DA';
       ctx.fill();
     }
     ctx.globalAlpha = 1;
   }
 
-  function loop() { t += 16; draw(); raf = requestAnimationFrame(loop); }
+  function loop() { t += 16; mxr += (tmxr - mxr) * 0.05; myr += (tmyr - myr) * 0.05; draw(); raf = requestAnimationFrame(loop); }
 
   function startFx() {
     build();
@@ -415,15 +421,15 @@
     "Diseño publicitario,":"Advertising design,",
     "y crecimiento digital.":"and digital growth.",
     "Diseño piezas gráficas, creo y gestiono campañas de paid media en Meta, Google y TikTok, y construyo tiendas Shopify que crecen — de la estrategia a la ejecución.":
-"I design creative assets, build and run paid media campaigns on Meta, Google and TikTok, and develop Shopify stores that grow — from strategy to execution.",
+      "I design graphic pieces, build and run paid media campaigns on Meta, Google and TikTok, and develop Shopify stores that grow — from strategy to execution.",
     "Abierto a nuevas oportunidades":"Open to new opportunities",
     "Diseño publicitario":"Advertising design",
     "Key visuals, promos de performance, lanzamientos y contenido social — sistema de marca coherente, listo para pauta.":
-"Key visuals, performance creatives, launches and social content — a coherent brand system, ready to run.",
+      "Key visuals, performance promos, launches and social content — a coherent brand system, ready to run.",
     "Campaña · Print & Digital":"Campaign · Print & Digital",
     "Producto · Key Visual":"Product · Key Visual",
     "Social · Carrusel":"Social · Carousel",
-    "Campaña · Pieza":"Campaign · Creative asset",
+    "Campaña · Pieza":"Campaign · Piece",
     "Estrategia y ejecución hands-on de campañas de performance. Diseño el embudo, produzco los creativos y optimizo por ROAS en las tres plataformas clave.":
       "Hands-on strategy and execution of performance campaigns. I design the funnel, produce the creatives and optimize for ROAS across the three key platforms.",
     "Inversión gestionada (CLP)":"Managed ad spend (CLP)",
@@ -459,7 +465,7 @@
     "Calzado":"Footwear","Moda · Bikinis":"Fashion · Swimwear","Sitio de artista":"Artist site",
     "Qué hago":"What I do",
     "Key visuals, piezas para pauta, promos y sistemas de marca. Dirección visual premium y editorial.":
-"Key visuals, ad creatives, promos and brand systems. Premium, editorial art direction.",
+      "Key visuals, ad creatives, promos and brand systems. Premium, editorial art direction.",
     "Branding · Campañas · Social":"Branding · Campaigns · Social",
     "Desarrollo a medida en Liquid, Theme Editor, GraphQL y gestión de catálogo.":
       "Custom development in Liquid, Theme Editor, GraphQL and catalog management.",
@@ -486,7 +492,7 @@
     "© 2026 Aníbal Solis — Todos los derechos reservados":"© 2026 Aníbal Solis — All rights reserved",
     "Diseño y desarrollo propio":"Designed & developed in-house"
   };
-  var RICH = [{ sel: '#sc-intro h2', es: 'Piezas <em>gráficas</em>', en: 'Creative <em>assets</em>' }];
+  var RICH = [{ sel: '#sc-intro h2', es: 'Piezas <em>gráficas</em>', en: 'Graphic <em>pieces</em>' }];
   var TITLE = { es: 'Aníbal — Diseño · Paid Media · Ecommerce · Digital', en: 'Aníbal — Design · Paid Media · Ecommerce · Digital' };
   var DESC = {
     es: 'Portafolio de Aníbal. Diseño publicitario, campañas de paid media (Meta, Google, TikTok), ecommerce y desarrollo web para marcas que venden online.',
@@ -566,4 +572,28 @@
   });
 
   apply(detect());
+})();
+
+/* =========================================================================
+   Cursor personalizado (solo en dispositivos con mouse fino). Sigue el
+   puntero con easing y crece sobre elementos interactivos.
+   ========================================================================= */
+(function () {
+  "use strict";
+  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  var cur = document.getElementById('cursor');
+  if (!cur) return;
+  document.body.classList.add('cursor-custom');
+  var x = window.innerWidth / 2, y = window.innerHeight / 2, tx = x, ty = y;
+  window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; cur.classList.add('on'); }, { passive: true });
+  document.addEventListener('mouseleave', function () { cur.classList.remove('on'); });
+  function loop() {
+    x += (tx - x) * 0.2; y += (ty - y) * 0.2;
+    cur.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%)';
+    requestAnimationFrame(loop);
+  }
+  loop();
+  var HOVER = 'a,button,.pf,.site-card,.work-item,.lang-toggle';
+  document.addEventListener('mouseover', function (e) { if (e.target.closest(HOVER)) cur.classList.add('hover'); });
+  document.addEventListener('mouseout', function (e) { if (e.target.closest(HOVER)) cur.classList.remove('hover'); });
 })();
