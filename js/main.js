@@ -583,12 +583,11 @@
   if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
   var cur = document.getElementById('cursor');
   if (!cur) return;
-  document.body.classList.add('cursor-custom');
   var x = window.innerWidth / 2, y = window.innerHeight / 2, tx = x, ty = y;
   window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; cur.classList.add('on'); }, { passive: true });
   document.addEventListener('mouseleave', function () { cur.classList.remove('on'); });
   function loop() {
-    x += (tx - x) * 0.2; y += (ty - y) * 0.2;
+    x += (tx - x) * 0.65; y += (ty - y) * 0.65;
     cur.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%)';
     requestAnimationFrame(loop);
   }
