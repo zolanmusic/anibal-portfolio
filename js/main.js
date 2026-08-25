@@ -415,7 +415,7 @@
 (function () {
   "use strict";
   var STR = {
-    "Piezas":"Pieces","Trabajo":"Work","Disciplinas":"Expertise","Perfil":"Profile","Contacto":"Contact",
+    "Piezas":"Creative","Trabajo":"Work","Disciplinas":"Expertise","Perfil":"Profile","Contacto":"Contact",
     "Menú":"Menu","Cerrar":"Close",
     "Portafolio · 2026":"Portfolio · 2026",
     "Diseño publicitario,":"Advertising design,",
@@ -429,7 +429,7 @@
     "Campaña · Print & Digital":"Campaign · Print & Digital",
     "Producto · Key Visual":"Product · Key Visual",
     "Social · Carrusel":"Social · Carousel",
-    "Campaña · Pieza":"Campaign · Piece",
+    "Campaña · Pieza":"Campaign · Creative",
     "Estrategia y ejecución hands-on de campañas de performance. Diseño el embudo, produzco los creativos y optimizo por ROAS en las tres plataformas clave.":
       "Hands-on strategy and execution of performance campaigns. I design the funnel, produce the creatives and optimize for ROAS across the three key platforms.",
     "Inversión gestionada (CLP)":"Managed ad spend (CLP)",
@@ -492,7 +492,7 @@
     "© 2026 Aníbal Solis — Todos los derechos reservados":"© 2026 Aníbal Solis — All rights reserved",
     "Diseño y desarrollo propio":"Designed & developed in-house"
   };
-  var RICH = [{ sel: '#sc-intro h2', es: 'Piezas <em>gráficas</em>', en: 'Graphic <em>pieces</em>' }];
+  var RICH = [{ sel: '#sc-intro h2', es: 'Piezas <em>gráficas</em>', en: 'Creative <em>work</em>' }];
   var TITLE = { es: 'Aníbal — Diseño · Paid Media · Ecommerce · Digital', en: 'Aníbal — Design · Paid Media · Ecommerce · Digital' };
   var DESC = {
     es: 'Portafolio de Aníbal. Diseño publicitario, campañas de paid media (Meta, Google, TikTok), ecommerce y desarrollo web para marcas que venden online.',
